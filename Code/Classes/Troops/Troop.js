@@ -27,6 +27,11 @@ class Troop{
       fill(200,10,10);
     }
     circle(this.pos.x, this.pos.y, this.size*2);
+    if(showHealth){
+      fill(0);
+      textAlign(CENTER, CENTER)
+      text(round(this.health), this.pos.x, this.pos.y);
+    }
     pop();
   }
   
@@ -50,9 +55,8 @@ class Troop{
       if(this.targetTimer <= 0){
         this.findTarget();
       }
-    }else if(distSq(this.pos, this.target.pos) <= Math.pow(this.range + this.size + this.target.size)){
+    }else if(distSq(this.pos, this.target.pos) <= Math.pow(this.range + this.size + this.target.size, 2)){
       //attack enemy
-
       
       if (this.attackCountdown <= 0){
         this.attackCountdown = this.attackTime;
@@ -93,26 +97,6 @@ class Troop{
       }
     }
     this.targetTimer = 120;
-  }
-  
-  move(direction){
-    direction.normalize();
-    direction.mult(this.speed);
-    let finalPos = p5.Vector.add(this.pos, direction);
-    for (let i in bunker1.troops){
-      let fDistToTroop = finalPos.dist(bunker1.troops[i].pos)
-      if(fDistToTroop < this.size + bunker1.troops[i].size && fDistToTroop < distSq(this.pos, bunker1.troops[i].pos) && bunker1.troops[i] != this){
-        return false;
-      }
-    }
-    for (let i in bunker2.troops){
-      let fDistToTroop = finalPos.dist(bunker2.troops[i].pos)
-      if(fDistToTroop < this.size + bunker2.troops[i].size && fDistToTroop < this.pos.dist(bunker2.troops[i].pos) && bunker2.troops[i] != this){
-        return false;
-      }
-    }
-    this.pos = finalPos;
-    return true;
   }
   
   moveToward(gTarget){

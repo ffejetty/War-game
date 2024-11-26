@@ -1,9 +1,9 @@
 let camPos; //camera position
 let randColours; //array of rand for grass
-let bgRes = 25; //background resolution (size of each square)
+let bgRes = 50; //background resolution (size of each square)
 
-const mapHeight = 1000;
-const mapWidth = 4000;
+const mapHeight = 750;
+const mapWidth = 3000;
 
 let bunker1; //p1 bunker object
 let bunker2; //p2 bunker object
@@ -12,6 +12,9 @@ let troopLimit = 60; //how many troops an be spawned each round
 
 let projectiles = [];//projectiles currently in the level
 
+let showHealth = true;
+let roundLength = 30 * 60; //length of each round (in frames)
+
 let tank;
 
 function preload(){
@@ -19,7 +22,7 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(windowWidth - 10, 750);
+  createCanvas(windowWidth - 10, 500);
   
   camPos = createVector(mapWidth/2, mapHeight/2);
   
@@ -35,6 +38,8 @@ function setup() {
   
   bunker1 = new Bunker(createVector(150, mapHeight/2), 1);
   bunker2 = new Bunker(createVector(mapWidth - 150, mapHeight/2), 2);
+
+  nextRound();
   
 }
 
@@ -88,7 +93,7 @@ function draw() {
   fill(0);
   textAlign(CENTER, CENTER)
   //countdown
-  text("" + round(10 - (frameCount % (60*10))/60), camPos.x, camPos.y - height/2 + 25);
+  text("" + round(roundLength/60 - (frameCount % (roundLength))/60), camPos.x, camPos.y - height/2 + 25);
   textAlign(LEFT, CENTER)
   text("money: " + bunker1.money, camPos.x - width/2 + 10, camPos.y - height/2 + 25)
   text("money: " + bunker2.money, camPos.x + width/2 -100 + 10, camPos.y - height/2 + 25)
@@ -104,14 +109,17 @@ function draw() {
   
   pop();
   
-  if(frameCount % (60*10) == 0){ //when new round (every 10 secs)
-    bunker1.money += bunker1.moneyPerRound;
-    bunker2.money += bunker2.moneyPerRound;
-    
-    bunker1.troopsAvailable = troopLimit;
-    bunker2.troopsAvailable = troopLimit;
-    
+  if(frameCount % (roundLength) == 0){ //when new round (every roundLength/60 secs)
+    nextRound();
   }
+}
+
+function nextRound(){
+  bunker1.money += bunker1.moneyPerRound;
+  bunker2.money += bunker2.moneyPerRound;
+    
+  bunker1.troopsAvailable = troopLimit;
+  bunker2.troopsAvailable = troopLimit;
 }
 
 function magSq(vect){ //returns square of the magnitude to save sqr root computation
