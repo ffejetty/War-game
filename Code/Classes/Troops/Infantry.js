@@ -5,12 +5,12 @@ class Infantry extends RangedTroop{
               50,         //health
               2,          //damage
               1,          //speed
-              100,          //range
+              150,          //range
               200,        //sight
               1 * 60,   //attack time
-              10,         //price
+              15,         //price
               1,          //cost
-              2,          //income
+              3,          //income
               newTeam     //team
              );
     }

@@ -5,7 +5,7 @@ class Swordsman extends Troop{
           10,      //size
           50,      //health
           2,       //damage
-          1,       //speed
+          1.1,       //speed
           5,       //range
           100,     //sight
           0.5 * 60,//attack time
