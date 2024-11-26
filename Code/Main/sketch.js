@@ -1,19 +1,25 @@
-
 let camPos; //camera position
 let randColours; //array of rand for grass
-let bgRes = 10; //background resolution (size of each square)
+let bgRes = 25; //background resolution (size of each square)
 
-const mapHeight = 500;
-const mapWidth = 1500;
+const mapHeight = 1000;
+const mapWidth = 4000;
 
 let bunker1; //p1 bunker object
 let bunker2; //p2 bunker object
 
 let troopLimit = 60; //how many troops an be spawned each round
 
+let projectiles = [];//projectiles currently in the level
+
+let tank;
+
+function preload(){
+  tank = loadImage("Assets/Blue Sprites/tank3.gif");
+}
 
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(windowWidth - 10, 750);
   
   camPos = createVector(mapWidth/2, mapHeight/2);
   
@@ -56,7 +62,7 @@ function draw() {
   
   //draw grass
   strokeWeight(0);
-  for (let i = round(camPos.x - width/2, -1); i < round(camPos.x + width/2, -1); i += bgRes){
+  for (let i = 0; i < mapWidth; i += bgRes){
     for (let j = 0; j < mapHeight; j += bgRes){
       let colour = randColours[i/bgRes][j/bgRes]
       
@@ -106,9 +112,14 @@ function draw() {
     bunker2.troopsAvailable = troopLimit;
     
   }
-  
-  
-  
+}
+
+function magSq(vect){ //returns square of the magnitude to save sqr root computation
+  return vect.x*vect.x + vect.y*vect.y;
+}
+
+function distSq(vect1, vect2){
+  return magSq(p5.Vector.sub(vect2, vect1));
 }
 
 function keyPressed(){
@@ -116,5 +127,7 @@ function keyPressed(){
     bunker1.buyTroop(new ExampleTroop(createVector(250, random(-75,75) + mapHeight/2), 1));
   }else if(key == "2"){
     bunker2.buyTroop(new ExampleTroop(createVector(mapWidth - 250, random(-75,75) + mapHeight/2), 2));
+  }else if(key == "f"){
+    fullscreen(!fullscreen());
   }
 }

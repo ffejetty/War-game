@@ -1,17 +1,20 @@
 class Troop{
-  constructor(newPos, newSize, newHealth, newDamage, newSpeed, newRange, newPrice, newTroopCost, newIncome, newTeam){
+  constructor(newPos, newSize, newHealth, newDamage, newSpeed, newRange, newSight, newAttackTime, newPrice, newTroopCost, newIncome, newTeam){
     this.pos = newPos;
     this.size = newSize;
     this.health = newHealth;
     this.damage = newDamage;
     this.speed = newSpeed;
-    this.range = newRange;
+    this.range = newRange; //attack range
+    this.sight = newSight; //how far it can see other troop
+    this.attackTime = newAttackTime;
     this.price = newPrice;
-    this.troopCost = newTroopCost;
+    this.troopCost = newTroopCost; //how many troops it takes up
     this.income = newIncome;
     this.team = newTeam; //1 for p1, 2 for p2
-    this.target = null;
+    this.target = null; //target object
     this.targetTimer = 120; //counter for how long target has been aimed at without attacking
+    this.attackCountdown = 0;
   }
   
   display(){
@@ -28,6 +31,7 @@ class Troop{
   }
   
   update(){
+    this.attackCountdown--;
     if (this.target == null){
       switch (this.team){
         case 1:
@@ -40,40 +44,50 @@ class Troop{
       
       this.findTarget();
       
-    }else if(this.pos.dist(this.target.pos) > this.range + this.size + this.target.size){
+    }else if(distSq(this.pos, this.target.pos) > Math.pow(this.range + this.size + this.target.size, 2)){
       this.moveToward(this.target.pos)
       this.targetTimer --;
       if(this.targetTimer <= 0){
         this.findTarget();
       }
-    }else if(this.pos.dist(this.target.pos) <= this.range + this.size + this.target.size){
+    }else if(distSq(this.pos, this.target.pos) <= Math.pow(this.range + this.size + this.target.size)){
       //attack enemy
-      this.targetTimer = 120;
-      this.target.health -= this.damage + random();
+
+      
+      if (this.attackCountdown <= 0){
+        this.attackCountdown = this.attackTime;
+        this.attack();
+      }
+      
       if (this.target.health <= 0){
         this.target = null;
       }
     }
   }
   
+  attack(){
+    this.targetTimer = 120;
+    this.target.health -= this.damage + random();
+  }
+  
   findTarget(){
     if(this.team == 1){
       for(let i in bunker2.troops){
         if(this.target == null){
-          if (this.pos.dist(bunker2.troops[i].pos) < 100){
+          if (distSq(this.pos, bunker2.troops[i].pos) < this.sight*this.sight){
             this.target = bunker2.troops[i];
           }
-        }else if(this.pos.dist(bunker2.troops[i].pos) < this.pos.dist(this.target.pos)){
+        }else if(distSq(this.pos, bunker2.troops[i].pos) < distSq(this.pos, this.target.pos)){
           this.target = bunker2.troops[i];
         }
       }
     }else{
       for(let i in bunker1.troops){
         if(this.target == null){
-          if (this.pos.dist(bunker1.troops[i].pos) < 100){
+          if (distSq(this.pos, bunker1.troops[i].pos) < this.sight*this.sight){
             this.target = bunker1.troops[i];
           }
-        }else if(this.pos.dist(bunker1.troops[i].pos) < this.pos.dist(this.target.pos)){
+        }else if(distSq(this.pos, bunker1.troops[i].pos) < distSq(this.pos, this.target.pos)){
           this.target = bunker1.troops[i];
         }
       }
@@ -87,7 +101,7 @@ class Troop{
     let finalPos = p5.Vector.add(this.pos, direction);
     for (let i in bunker1.troops){
       let fDistToTroop = finalPos.dist(bunker1.troops[i].pos)
-      if(fDistToTroop < this.size + bunker1.troops[i].size && fDistToTroop < this.pos.dist(bunker1.troops[i].pos) && bunker1.troops[i] != this){
+      if(fDistToTroop < this.size + bunker1.troops[i].size && fDistToTroop < distSq(this.pos, bunker1.troops[i].pos) && bunker1.troops[i] != this){
         return false;
       }
     }
