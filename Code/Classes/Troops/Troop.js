@@ -57,7 +57,7 @@ class Troop{
       }
     }else if(distSq(this.pos, this.target.pos) <= Math.pow(this.range + this.size + this.target.size, 2)){
       //attack enemy
-      
+      this.targetTimer = 120;
       if (this.attackCountdown <= 0){
         this.attackCountdown = this.attackTime;
         this.attack();
@@ -70,7 +70,6 @@ class Troop{
   }
   
   attack(){
-    this.targetTimer = 120;
     this.target.health -= this.damage + random();
   }
   

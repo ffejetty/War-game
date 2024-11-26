@@ -28,7 +28,8 @@ class Bunker{
   
   update(){
     if(frameCount % (60*0.1) == 0){
-      let nextTroop = new Swordsman(createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      //let nextTroop = new Swordsman(createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      let nextTroop = new Infantry(createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
       this.buyTroop(nextTroop);
     }
     

@@ -75,6 +75,15 @@ function draw() {
       rect(i, j, bgRes, bgRes);
     }
   }
+
+  for(let i in projectiles){
+    projectiles[i].display();
+    projectiles[i].update();
+    if(projectiles[i].damage <= 0){
+      projectiles.splice(i, 1);
+      i--;
+    }
+  }
   
   bunker1.display();
   bunker1.update();

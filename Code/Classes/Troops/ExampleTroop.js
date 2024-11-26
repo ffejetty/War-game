@@ -9,7 +9,7 @@ class ExampleTroop extends Troop{
           10,      //range
           100,     //sight
           25,      //price
-          1 * 60,  //attack time
+          0.6 * 60,  //attack time
           2,       //cost
           3,       //income
           newTeam  //team
