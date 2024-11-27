@@ -1,6 +1,7 @@
 let camPos; //camera position
 let randColours; //array of rand for grass
 let bgRes = 50; //background resolution (size of each square)
+let troopBarSize = 150;
 
 const mapHeight = 750;
 const mapWidth = 3000;
@@ -22,7 +23,7 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(windowWidth - 10, 500);
+  createCanvas(windowWidth - 10, 500 + troopBarSize);
   
   camPos = createVector(mapWidth/2, mapHeight/2);
   
@@ -53,13 +54,13 @@ function draw() {
     camPos.x += 5;
   }
   
-  if(keyIsDown(UP_ARROW) && camPos.y - height/2 > 0){ //move camera up
+  if(keyIsDown(UP_ARROW) && camPos.y - (height - troopBarSize)/2 > 0){ //move camera up
     camPos.y -= 5;
-  }else if(keyIsDown(DOWN_ARROW) && camPos.y + height/2 < mapHeight){ //move camera down
+  }else if(keyIsDown(DOWN_ARROW) && camPos.y + (height - troopBarSize)/2 < mapHeight){ //move camera down
     camPos.y += 5;
   }
   
-  translate(width/2 - camPos.x, height/2 - camPos.y); //move canvas to camera
+  translate(width/2 - camPos.x, (height - troopBarSize)/2 - camPos.y); //move canvas to camera
   
   push();
   fill(150);
@@ -94,27 +95,31 @@ function draw() {
   fill(100, 100);
   circle(camPos.x, camPos.y, 10); //camera pointer
   
-  circle(camPos.x, camPos.y - height/2 + 25, 50); //countdown background
+  circle(camPos.x, camPos.y - (height - troopBarSize)/2 + 25, 50); //countdown background
   
-  rect(camPos.x - width/2, camPos.y - height/2, 100, 100); //p1 info background
-  rect(camPos.x + width/2 - 100, camPos.y - height/2, 100, 100); //p2 info background
+  rect(camPos.x - width/2, camPos.y - (height - troopBarSize)/2, 100, 100); //p1 info background
+  rect(camPos.x + width/2 - 100, camPos.y - (height - troopBarSize)/2, 100, 100); //p2 info background
   
   fill(0);
   textAlign(CENTER, CENTER)
   //countdown
-  text("" + round(roundLength/60 - (frameCount % (roundLength))/60), camPos.x, camPos.y - height/2 + 25);
+  text("" + round(roundLength/60 - (frameCount % (roundLength))/60), camPos.x, camPos.y - (height - troopBarSize)/2 + 25);
   textAlign(LEFT, CENTER)
-  text("money: " + bunker1.money, camPos.x - width/2 + 10, camPos.y - height/2 + 25)
-  text("money: " + bunker2.money, camPos.x + width/2 -100 + 10, camPos.y - height/2 + 25)
+  text("money: " + bunker1.money, camPos.x - width/2 + 10, camPos.y - (height - troopBarSize)/2 + 25)
+  text("money: " + bunker2.money, camPos.x + width/2 -100 + 10, camPos.y - (height - troopBarSize)/2 + 25)
   
-  text("income: " + bunker1.moneyPerRound, camPos.x - width/2 + 10, camPos.y - height/2 + 40)
-  text("income: " + bunker2.moneyPerRound, camPos.x + width/2 -100 + 10, camPos.y - height/2 + 40)
+  text("income: " + bunker1.moneyPerRound, camPos.x - width/2 + 10, camPos.y - (height - troopBarSize)/2 + 40)
+  text("income: " + bunker2.moneyPerRound, camPos.x + width/2 -100 + 10, camPos.y - (height - troopBarSize)/2 + 40)
   
-  text("troops: " + bunker1.troopsAvailable, camPos.x - width/2 + 10, camPos.y - height/2 + 55)
-  text("troops: " + bunker2.troopsAvailable, camPos.x + width/2 -100 + 10, camPos.y - height/2 + 55)
+  text("troops: " + bunker1.troopsAvailable, camPos.x - width/2 + 10, camPos.y - (height - troopBarSize)/2 + 55)
+  text("troops: " + bunker2.troopsAvailable, camPos.x + width/2 -100 + 10, camPos.y - (height - troopBarSize)/2 + 55)
   
-  text("deployed: " + bunker1.getArmySize(), camPos.x - width/2 + 10, camPos.y - height/2 + 70)
-  text("deployed: " + bunker2.getArmySize(), camPos.x + width/2 -100 + 10, camPos.y - height/2 + 70)
+  text("deployed: " + bunker1.getArmySize(), camPos.x - width/2 + 10, camPos.y - (height - troopBarSize)/2 + 70)
+  text("deployed: " + bunker2.getArmySize(), camPos.x + width/2 -100 + 10, camPos.y - (height - troopBarSize)/2 + 70)
+
+  fill(0)
+  rect(camPos.x - width/2, camPos.y + (height - troopBarSize)/2, width, troopBarSize);
+
   
   pop();
   
@@ -143,13 +148,28 @@ function inMap(pos){ //returns t/f that the point given is in the map
   return (pos.x >= 0 && pos.x <= mapWidth && pos.y >= 0 && pos.y <= mapHeight)
 }
 
+function getNewTroop(className, newPos, newTeam){
+    switch (className){
+      case "Swordsman":
+        return new Swordsman(newPos, newTeam);
+      case "Scout":
+        return new Scout(newPos, newTeam);
+      case "Infantry":
+        return new Infantry(newPos, newTeam);
+      case "SMG":
+        return new SMG(newPos, newTeam);
+      default:
+        return new Swordsman(newPos, newTeam);
+    }
+}
+
 function keyPressed(){
   if(key == "1"){
-    bunker1.buyTroop(new Infantry(createVector(200, random(-75,75) + mapHeight/2), 1));
+    bunker1.buyTroop(getNewTroop("Infantry", createVector(200, random(-75,75) + mapHeight/2), 1));
   }else if(key == "2"){
-    bunker2.buyTroop(new Infantry(createVector(mapWidth - 200, random(-75,75) + mapHeight/2), 2));
+    bunker2.buyTroop(getNewTroop("Infantry", createVector(mapWidth - 200, random(-75,75) + mapHeight/2), 2));
   }else if(key == "3"){
-    bunker1.buyTroop(new SMG(createVector(200, random(-75,75) + mapHeight/2), 1));
+    bunker1.buyTroop(getNewTroop("SMG", createVector(200, random(-75,75) + mapHeight/2), 1));
   }else if(key == "f"){
     fullscreen(!fullscreen());
   }

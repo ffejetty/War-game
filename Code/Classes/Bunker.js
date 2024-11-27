@@ -29,24 +29,24 @@ class Bunker{
   
   update(){
     if(frameCount % (60*0.1) == 0){
-      let nextTroop = new Swordsman(createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      let nextTroop = getNewTroop("Swordsman" ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
 
       
       if(this.team == 1){
-        //nextTroop = new Infantry(createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
-        if(random() > 0.75){
-          nextTroop = new SMG(createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+        //nextTroop = getNewTroop("Infantry", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+        if(random() > 0.85){
+          nextTroop = getNewTroop("SMG", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
         }
         
       }else{
-        //nextTroop = new Scout(createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+        //nextTroop = getNewTroop("Scout", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
         if(random() > 0.75){
-          nextTroop = new Infantry(createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+          nextTroop = getNewTroop("Infantry", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
         }
         
       }
-      //let nextTroop = new Swordsman(createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
-      //let nextTroop = new Infantry(createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      //let nextTroop = getNewTroop("Swordsman", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      //let nextTroop = getNewTroop("Infantry", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
 
       
 
@@ -83,6 +83,8 @@ class Bunker{
       }
     }
   }
+
+  
   
   display(){
     push();
