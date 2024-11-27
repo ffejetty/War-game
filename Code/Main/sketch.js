@@ -117,9 +117,13 @@ function draw() {
   text("deployed: " + bunker1.getArmySize(), camPos.x - width/2 + 10, camPos.y - (height - troopBarSize)/2 + 70)
   text("deployed: " + bunker2.getArmySize(), camPos.x + width/2 -100 + 10, camPos.y - (height - troopBarSize)/2 + 70)
 
-  fill(0)
+  fill(0);
   rect(camPos.x - width/2, camPos.y + (height - troopBarSize)/2, width, troopBarSize);
 
+  fill(180, 130, 0);
+  stroke(150, 100, 0);
+  strokeWeight(10);
+  line(camPos.x - width/2, camPos.y + (height - troopBarSize)/2, camPos.x + width/2, camPos.y + (height - troopBarSize)/2);
   
   pop();
   

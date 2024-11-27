@@ -8,6 +8,7 @@ class Bunker{
     this.moneyPerRound = 100;
     this.troopsAvailable = troopLimit;
     this.kills = 0;
+    this.selectedTroop = "Swordsman";
   }
   
   buyTroop(troop){
@@ -29,7 +30,7 @@ class Bunker{
   
   update(){
     if(frameCount % (60*0.1) == 0){
-      let nextTroop = getNewTroop("Swordsman" ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      let nextTroop = getNewTroop(this.selectedTroop ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
 
       
       if(this.team == 1){
