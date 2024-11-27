@@ -79,12 +79,7 @@ function draw() {
   for(let i in projectiles){
     projectiles[i].display();
     projectiles[i].update();
-    if(projectiles[i].damage <= 0 ||
-       projectiles[i].pos.x > mapWidth  ||
-       projectiles[i].pos.x < 0 ||
-       projectiles[i].pos.y > mapHeight  ||
-       projectiles[i].pos.y < 0
-      ){
+    if(!inMap(projectiles[i].pos)){
       projectiles.splice(i, 1);
       i--;
     }
@@ -144,11 +139,17 @@ function distSq(vect1, vect2){
   return magSq(p5.Vector.sub(vect2, vect1));
 }
 
+function inMap(pos){ //returns t/f that the point given is in the map
+  return (pos.x >= 0 && pos.x <= mapWidth && pos.y >= 0 && pos.y <= mapHeight)
+}
+
 function keyPressed(){
   if(key == "1"){
     bunker1.buyTroop(new Infantry(createVector(200, random(-75,75) + mapHeight/2), 1));
   }else if(key == "2"){
     bunker2.buyTroop(new Infantry(createVector(mapWidth - 200, random(-75,75) + mapHeight/2), 2));
+  }else if(key == "3"){
+    bunker1.buyTroop(new SMG(createVector(200, random(-75,75) + mapHeight/2), 1));
   }else if(key == "f"){
     fullscreen(!fullscreen());
   }

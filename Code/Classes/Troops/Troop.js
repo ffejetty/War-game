@@ -1,5 +1,18 @@
 class Troop{
-  constructor(newPos, newSize, newHealth, newDamage, newSpeed, newRange, newSight, newAttackTime, newPrice, newTroopCost, newIncome, newTeam){
+  constructor(newPos, 
+              newSize, 
+              newHealth, 
+              newDamage, 
+              newSpeed, 
+              newRange, 
+              newSight, 
+              newAttackTime, 
+              newPrice, 
+              newTroopCost, 
+              newIncome, 
+              newTeam){
+
+
     this.pos = newPos;
     this.size = newSize;
     this.health = newHealth;
@@ -12,9 +25,11 @@ class Troop{
     this.troopCost = newTroopCost; //how many troops it takes up
     this.income = newIncome;
     this.team = newTeam; //1 for p1, 2 for p2
-    this.target = null; //target object
+    this.target = null; //target troop object
     this.targetTimer = 120; //counter for how long target has been aimed at without attacking
-    this.attackCountdown = 0;
+    this.attackCountdown = 0; //cooldown for attacking
+
+
   }
   
   display(){
@@ -105,18 +120,18 @@ class Troop{
     
   
     let finalPos = p5.Vector.add(this.pos, target);
-    if(!this.isColliding(finalPos)){
+    if(!this.isColliding(finalPos) && inMap(this.pos)){
       this.pos.add(target);
       return true;
     }
     for(let a = 0.1; a < PI; a += 0.1){
       finalPos = p5.Vector.add(this.pos, p5.Vector.rotate(target, a));
-      if(!this.isColliding(finalPos)){
+      if(!this.isColliding(finalPos) && inMap(this.pos)){
         this.pos.add(p5.Vector.rotate(target, a));
         return true;
       }
       finalPos = p5.Vector.add(this.pos, p5.Vector.rotate(target, -a));
-      if(!this.isColliding(finalPos)){
+      if(!this.isColliding(finalPos) && inMap(this.pos)){
         this.pos.add(p5.Vector.rotate(target, -a));
         return true;
       }

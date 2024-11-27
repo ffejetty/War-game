@@ -12,20 +12,29 @@ class Projectile{
         if (this.team == 1){
             for(let i in bunker2.troops){
                 if(distSq(this.pos, bunker2.troops[i].pos) < Math.pow(this.size + bunker2.troops[i].size, 2)){
-                    bunker2.troops[i].health -= this.damage;
-                    this.damage = 0;
-                    this.size = 0;
+                    this.impact(bunker2.troops[i]);
                 }
             }
         }else if (this.team == 2){
             for(let i in bunker1.troops){
                 if(distSq(this.pos, bunker1.troops[i].pos) < Math.pow(this.size + bunker1.troops[i].size, 2)){
-                    bunker1.troops[i].health -= this.damage;
-                    this.damage = 0;
-                    this.size = 0;
+                    this.impact(bunker1.troops[i]);
                 }
             }
         }
+    }
+
+    impact(victim){
+        if (this.team == 1){
+            victim.health -= this.damage;
+            this.damage = 0;
+            this.size = 0;
+        }else{
+            victim.health -= this.damage;
+            this.damage = 0;
+            this.size = 0;
+        }
+
     }
 
     display(){
