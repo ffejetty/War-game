@@ -42,7 +42,7 @@ class Bunker{
       }else{
         //nextTroop = getNewTroop("Scout", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
         if(random() > 0.75){
-          nextTroop = getNewTroop("Infantry", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+          nextTroop = getNewTroop("LightTank", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
         }
         
       }

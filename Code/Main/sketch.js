@@ -162,6 +162,8 @@ function getNewTroop(className, newPos, newTeam){
         return new Infantry(newPos, newTeam);
       case "SMG":
         return new SMG(newPos, newTeam);
+      case "LightTank":
+        return new LightTank(newPos, newTeam);
       default:
         return new Swordsman(newPos, newTeam);
     }

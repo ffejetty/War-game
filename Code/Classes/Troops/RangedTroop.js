@@ -19,11 +19,11 @@ class RangedTroop extends Troop{
   }
   
   attack(){
-    projectiles.push(this.getProjectile());
+    projectiles.push(this.getProjectile(p5.Vector.mult(this.pos, 1), p5.Vector.sub(this.target.pos, this.pos).rotate(random(-PI*this.accuracy, PI*this.accuracy)), this.team));
   }
 
-  getProjectile(){
-    return new Bullet_9mm(p5.Vector.mult(this.pos, 1), p5.Vector.sub(this.target.pos, this.pos).rotate(random(-PI*this.accuracy, PI*this.accuracy)), this.team) //default bullet 9mm
+  getProjectile(newPos, newDirection, newTeam){
+    return new Bullet_9mm(newPos, newDirection, newTeam); //default bullet 9mm
   }
 
 
