@@ -4,7 +4,7 @@ class Bunker{
     this.health = 10000;
     this.troops = [];
     this.team = newTeam;
-    this.money = 100000;
+    this.money = 0;
     this.moneyPerRound = 100;
     this.troopsAvailable = troopLimit;
     this.kills = 0;
@@ -30,25 +30,27 @@ class Bunker{
   
   update(){
     if(frameCount % (60*0.1) == 0){
-      let nextTroop = getNewTroop(this.selectedTroop ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      let nextTroop = getNewTroop(this.selectedTroop ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);   //used when i add players being bale to select troops
 
-      
+      /*
       if(this.team == 1){
         //nextTroop = getNewTroop("Infantry", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
-        if(random() > 0.85){
-          nextTroop = getNewTroop("SMG", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+        if(random() >= 0){
+          nextTroop = getNewTroop("Scout", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
         }
         
       }else{
         //nextTroop = getNewTroop("Scout", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
-        if(random() > 0.75){
-          nextTroop = getNewTroop("LightTank", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+        if(random() >= 0){
+          nextTroop = getNewTroop("Swordsman", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
         }
         
       }
       //let nextTroop = getNewTroop("Swordsman", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
       //let nextTroop = getNewTroop("Infantry", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      */
 
+      nextTroop = getNewTroop(random(["Swordsman", "Swordsman", "Scout", "Infantry", "Infantry", "SMG", "LightTank"]) ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
       
 
       this.buyTroop(nextTroop);

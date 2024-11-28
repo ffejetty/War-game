@@ -80,7 +80,9 @@ function draw() {
   for(let i in projectiles){
     projectiles[i].display();
     projectiles[i].update();
-    if(!inMap(projectiles[i].pos)){
+    if(!inMap(projectiles[i].pos) ||
+       projectiles[i].damage <= 0
+      ){
       projectiles.splice(i, 1);
       i--;
     }
@@ -108,8 +110,8 @@ function draw() {
   text("money: " + bunker1.money, camPos.x - width/2 + 10, camPos.y - (height - troopBarSize)/2 + 25)
   text("money: " + bunker2.money, camPos.x + width/2 -100 + 10, camPos.y - (height - troopBarSize)/2 + 25)
   
-  text("income: " + bunker1.moneyPerRound, camPos.x - width/2 + 10, camPos.y - (height - troopBarSize)/2 + 40)
-  text("income: " + bunker2.moneyPerRound, camPos.x + width/2 -100 + 10, camPos.y - (height - troopBarSize)/2 + 40)
+  text("income: " + round(bunker1.moneyPerRound), camPos.x - width/2 + 10, camPos.y - (height - troopBarSize)/2 + 40)
+  text("income: " + round(bunker2.moneyPerRound), camPos.x + width/2 -100 + 10, camPos.y - (height - troopBarSize)/2 + 40)
   
   text("troops: " + bunker1.troopsAvailable, camPos.x - width/2 + 10, camPos.y - (height - troopBarSize)/2 + 55)
   text("troops: " + bunker2.troopsAvailable, camPos.x + width/2 -100 + 10, camPos.y - (height - troopBarSize)/2 + 55)
@@ -133,8 +135,8 @@ function draw() {
 }
 
 function nextRound(){
-  bunker1.money += bunker1.moneyPerRound;
-  bunker2.money += bunker2.moneyPerRound;
+  bunker1.money += round(bunker1.moneyPerRound);
+  bunker2.money += round(bunker2.moneyPerRound);
     
   bunker1.troopsAvailable = troopLimit;
   bunker2.troopsAvailable = troopLimit;

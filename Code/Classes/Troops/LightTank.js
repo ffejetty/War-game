@@ -9,9 +9,9 @@ class LightTank extends RangedTroop{
               200,        //sight
               0.01,          //accuracy  
               1.75 * 60,     //attack time
-              30,         //price
+              100,         //price
               2,          //cost
-              6,          //income
+              20,          //income
               newTeam     //team
              );
     }

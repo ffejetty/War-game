@@ -2,16 +2,16 @@ class Scout extends Troop{
     constructor(newPos, newTeam){
         super(
             newPos,  //pos
-            8,      //size
-            25,      //health
-            5,       //damage
+            9,      //size
+            20,      //health
+            1,       //damage
             1.5,       //speed
             5,       //range
             75,     //sight
-            0.25 * 60,//attack time
-            10,      //price
+            0.2 * 60,//attack time
+            8,      //price
             1,       //cost
-            1,       //income
+            1.6,       //income
             newTeam  //team
            );
     }
