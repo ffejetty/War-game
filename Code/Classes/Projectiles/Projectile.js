@@ -11,7 +11,7 @@ class Projectile{
         this.pos.add(this.vel);
         if (this.team == 1){
             for(let i in bunker2.troops){
-                if(distSq(this.pos, bunker2.troops[i].pos) < Math.pow(this.size + bunker2.troops[i].size, 2)){
+                if(checkImpact(bunker2.troops[i])){
                     this.impact(bunker2.troops[i]);
                     this.damage = 0;
                     this.size = 0;
@@ -19,13 +19,17 @@ class Projectile{
             }
         }else if (this.team == 2){
             for(let i in bunker1.troops){
-                if(distSq(this.pos, bunker1.troops[i].pos) < Math.pow(this.size + bunker1.troops[i].size, 2)){
+                if(checkImpact(bunker1.troops[i])){
                     this.impact(bunker1.troops[i]);
                     this.damage = 0;
                     this.size = 0;
                 }
             }
         }
+    }
+
+    checkImpact(victim){
+        return distSq(this.pos, victim.pos) < Math.pow(this.size + victim.size, 2);
     }
 
     impact(victim){

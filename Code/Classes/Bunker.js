@@ -50,7 +50,7 @@ class Bunker{
       //let nextTroop = getNewTroop("Infantry", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
       */
 
-      nextTroop = getNewTroop(random(["Swordsman", "Swordsman", "Scout", "Infantry", "Infantry", "SMG", "LightTank"]) ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      //nextTroop = getNewTroop(random(["Swordsman", "Swordsman", "Scout", "Infantry", "Infantry", "SMG", "LightTank"]) ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
       
 
       this.buyTroop(nextTroop);
@@ -97,7 +97,7 @@ class Bunker{
     }
     
     fill(10,50,0);
-    rect(this.pos.x - 100, this.pos.y - 100, 200, 200);
+    //rect(this.pos.x - 100, this.pos.y - 100, 200, 200);
 
     textAlign(CENTER, CENTER);
     fill(0);

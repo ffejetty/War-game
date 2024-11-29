@@ -13,6 +13,8 @@ let troopLimit = 60; //how many troops an be spawned each round
 
 let projectiles = [];//projectiles currently in the level
 
+let effects = [] //effects being displayed in level
+
 let showHealth = true;
 let roundLength = 30 * 60; //length of each round (in frames)
 
@@ -94,6 +96,15 @@ function draw() {
   bunker2.display();
   bunker2.update();
   
+  for (let i in effects){
+    effects[i].update();
+    effects[i].display();
+    if(effects[i].timeLeft <= 0){
+      effects.splice(i, 1);
+      i--;
+    }
+  }
+
   fill(100, 100);
   circle(camPos.x, camPos.y, 10); //camera pointer
   
@@ -166,6 +177,8 @@ function getNewTroop(className, newPos, newTeam){
         return new SMG(newPos, newTeam);
       case "LightTank":
         return new LightTank(newPos, newTeam);
+      case "Medic":
+        return new Medic(newPos, newTeam);
       default:
         return new Swordsman(newPos, newTeam);
     }
@@ -178,7 +191,13 @@ function keyPressed(){
     bunker2.buyTroop(getNewTroop("Infantry", createVector(mapWidth - 200, random(-75,75) + mapHeight/2), 2));
   }else if(key == "3"){
     bunker1.buyTroop(getNewTroop("SMG", createVector(200, random(-75,75) + mapHeight/2), 1));
+  }else if(key == "0"){
+    bunker2.buyTroop(getNewTroop("Medic", createVector(mapWidth - 200, random(-75,75) + mapHeight/2), 2));
   }else if(key == "f"){
     fullscreen(!fullscreen());
   }
+}
+
+function mousePressed(){
+  bunker2.troops.push(new Medic(createVector(mouseX + camPos.x - width/2, mouseY + camPos.y - height/2 + troopBarSize/2), 2));
 }

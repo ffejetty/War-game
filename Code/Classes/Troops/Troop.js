@@ -16,6 +16,7 @@ class Troop{
     this.pos = newPos;
     this.size = newSize;
     this.health = newHealth;
+    this.maxHealth = newHealth;
     this.damage = newDamage;
     this.speed = newSpeed;
     this.range = newRange; //attack range
@@ -28,6 +29,8 @@ class Troop{
     this.target = null; //target troop object
     this.targetTimer = 120; //counter for how long target has been aimed at without attacking
     this.attackCountdown = 0; //cooldown for attacking
+
+    this.isMedic = false;
 
 
   }
