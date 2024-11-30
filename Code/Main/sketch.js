@@ -3,6 +3,8 @@ let randColours; //array of rand for grass
 let bgRes = 50; //background resolution (size of each square)
 let troopBarSize = 150;
 
+let collisionAccuracy = 0.5;
+
 const mapHeight = 750;
 const mapWidth = 3000;
 
@@ -30,7 +32,6 @@ function setup() {
   camPos = createVector(mapWidth/2, mapHeight/2);
   
   randColours = [];
-  
   
   for (let i = 0; i <= mapWidth; i += bgRes){ //creating each background square
     randColours.push([[100, 50 + random(50,100), 20]]);
@@ -179,6 +180,8 @@ function getNewTroop(className, newPos, newTeam){
         return new LightTank(newPos, newTeam);
       case "Medic":
         return new Medic(newPos, newTeam);
+      case "Sniper":
+        return new Sniper(newPos, newTeam);
       default:
         return new Swordsman(newPos, newTeam);
     }
@@ -193,6 +196,8 @@ function keyPressed(){
     bunker1.buyTroop(getNewTroop("SMG", createVector(200, random(-75,75) + mapHeight/2), 1));
   }else if(key == "0"){
     bunker2.buyTroop(getNewTroop("Medic", createVector(mapWidth - 200, random(-75,75) + mapHeight/2), 2));
+  }else if(key == "7"){
+    bunker2.buyTroop(getNewTroop("Swordsman", createVector(mapWidth - 200, random(-75,75) + mapHeight/2), 2));
   }else if(key == "f"){
     fullscreen(!fullscreen());
   }

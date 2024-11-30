@@ -1,7 +1,9 @@
 class Effect{
-    constructor(newPos, newTime){
+    constructor(newPos, newSize, newTime){
         this.pos = newPos;
+        this.size = newSize;
         this.timeLeft = newTime;
+        this.startTime = newTime;
     }
 
     update(){

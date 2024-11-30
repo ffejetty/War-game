@@ -98,10 +98,13 @@ class Medic extends Troop{
     }
 
     attack(){
+        if(this.target.health >= this.target.maxHealth){
+          return;
+        }
         this.target.health -= this.damage - random();
         if(this.target.health > this.target.maxHealth){
             this.target.health = this.target.maxHealth;
         }
-        effects.push(new HealthEffect(this.target.pos, this.target.size * 2 + 3));
+        effects.push(new HealEffect(this.target.pos, this.target.size * 2 + 3));
     }
 }

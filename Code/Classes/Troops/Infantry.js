@@ -1,4 +1,4 @@
-class Infantry extends RangedTroop{
+class Infantry extends RangedTroop{  //shoots a beretta M1934
     constructor(newPos, newTeam){
         super(newPos,     //pos
               10,         //size

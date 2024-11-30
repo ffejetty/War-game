@@ -1,12 +1,12 @@
 class HealEffect extends Effect{
-    constructor(newPos, newTime){
-        super(newPos, newTime);
+    constructor(newPos, newSize){
+        super(newPos, newSize, 50);
     }
 
     display(){
         push();
-        fill(50, 200, 50, 255 * (1 - this.timeLeft/this.startTime));
-        circle(this.target.pos.x, this.target.pos.y, this.target.size * 2 + 3);
+        fill(50, 200, 50, 225 * (this.timeLeft/this.startTime));
+        circle(this.pos.x, this.pos.y, this.size);
         pop();
     }
 

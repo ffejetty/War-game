@@ -54,6 +54,11 @@ class Troop{
   }
   
   update(){
+    if (this.target != null){
+      if (this.target.health <= 0){
+        this.target = null;
+      }
+    }
     this.attackCountdown--;
     if (this.target == null){
       switch (this.team){
@@ -81,9 +86,7 @@ class Troop{
         this.attack();
       }
       
-      if (this.target.health <= 0){
-        this.target = null;
-      }
+      
     }
   }
   
@@ -127,7 +130,7 @@ class Troop{
       this.pos.add(target);
       return true;
     }
-    for(let a = 0.1; a < PI; a += 0.1){
+    for(let a = collisionAccuracy; a < PI; a += 0.1){
       finalPos = p5.Vector.add(this.pos, p5.Vector.rotate(target, a));
       if(!this.isColliding(finalPos) && inMap(this.pos)){
         this.pos.add(p5.Vector.rotate(target, a));

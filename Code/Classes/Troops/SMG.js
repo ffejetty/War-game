@@ -1,4 +1,4 @@
-class SMG extends RangedTroop{
+class SMG extends RangedTroop{ //shoots an MP40
     constructor(newPos, newTeam){
         super(newPos,     //pos
             10,         //size

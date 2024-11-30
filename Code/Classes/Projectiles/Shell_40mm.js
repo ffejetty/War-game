@@ -4,7 +4,7 @@ class Shell_40mm extends Shell{
             newPos,                                //pos
             newDirection.normalize().mult(9),     //vel
             5,                                    //damage
-            6,                                     //size
+            8,                                     //size
             50,                                    //explosion radius
             newTeam                                //team
            );

@@ -4,7 +4,7 @@ class Bullet_9mm extends Projectile{
               newPos,                                //pos
               newDirection.normalize().mult(10),     //vel
               5,                                    //damage
-              5,                                     //size
+              3,                                     //size
               newTeam                                //team
              );
     }

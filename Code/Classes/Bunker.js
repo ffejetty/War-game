@@ -4,7 +4,7 @@ class Bunker{
     this.health = 10000;
     this.troops = [];
     this.team = newTeam;
-    this.money = 0;
+    this.money = 100000;
     this.moneyPerRound = 100;
     this.troopsAvailable = troopLimit;
     this.kills = 0;
@@ -12,7 +12,7 @@ class Bunker{
   }
   
   buyTroop(troop){
-    if(this.money >= troop.price && this.troopsAvailable >= troop.troopCost && this.troops.length < 100){
+    if(this.money >= troop.price && this.troopsAvailable >= troop.troopCost && this.troops.length < 200){
       this.money -= troop.price;
       this.moneyPerRound += troop.income;
       this.troopsAvailable -= troop.troopCost;
@@ -31,6 +31,9 @@ class Bunker{
   update(){
     if(frameCount % (60*0.1) == 0){
       let nextTroop = getNewTroop(this.selectedTroop ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);   //used when i add players being bale to select troops
+        
+      
+      
 
       /*
       if(this.team == 1){
@@ -50,10 +53,16 @@ class Bunker{
       //let nextTroop = getNewTroop("Infantry", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
       */
 
-      //nextTroop = getNewTroop(random(["Swordsman", "Swordsman", "Scout", "Infantry", "Infantry", "SMG", "LightTank"]) ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
-      
+      if(this.team == 1){
+        nextTroop = getNewTroop("Sniper", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      }else{
+        nextTroop = getNewTroop("Infantry", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      }
 
+      nextTroop = getNewTroop(random(["Swordsman", "Swordsman", "Scout", "Infantry", "Infantry", "SMG", "LightTank", "Sniper"]) ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+      
       this.buyTroop(nextTroop);
+      
     }
     
     for(let i in this.troops){
@@ -97,7 +106,7 @@ class Bunker{
     }
     
     fill(10,50,0);
-    //rect(this.pos.x - 100, this.pos.y - 100, 200, 200);
+    rect(this.pos.x - 100, this.pos.y - 100, 200, 200);
 
     textAlign(CENTER, CENTER);
     fill(0);
