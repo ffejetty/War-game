@@ -37,6 +37,10 @@ class Medic extends Troop{
             this.findTarget();
           }
         }else if(distSq(this.pos, this.target.pos) <= Math.pow(this.range + this.size + this.target.size, 2)){
+          if (this.target.health <= 0){
+            this.target = null;
+            return;
+          }
           //attack enemy
           this.targetTimer = 120;
           if (this.attackCountdown <= 0){
@@ -53,10 +57,6 @@ class Medic extends Troop{
                   this.moveToward(createVector(150, this.pos.y));
                   break;
             }
-          }
-          
-          if (this.target.health <= 0){
-            this.target = null;
           }
         }
     }

@@ -7,12 +7,15 @@ class Shell extends Projectile{
     impact(victim){
 
         push();
-        fill(200, 150, 5, 100);
-        circle(this.pos.x, this.pos.y, this.explosionRadius*2);
+        effects.push(new Explosion(p5.Vector.mult(this.pos, 1), this.size, this.explosionRadius));
+        
 
         let explosionRadiusSq = this.explosionRadius * this.explosionRadius;
 
-        victim.health -= this.damage;
+        if(victim != null){
+            victim.health -= this.damage;
+        }
+        
 
         if (this.team == 1){
             for (let i in bunker2.troops){
@@ -31,6 +34,8 @@ class Shell extends Projectile{
                 }
             }
         }
+
+        
 
         pop();
     }

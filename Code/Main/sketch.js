@@ -17,7 +17,7 @@ let projectiles = [];//projectiles currently in the level
 
 let effects = [] //effects being displayed in level
 
-let showHealth = true;
+let showHealth = false;
 let roundLength = 30 * 60; //length of each round (in frames)
 
 let tank;
@@ -204,5 +204,25 @@ function keyPressed(){
 }
 
 function mousePressed(){
-  bunker2.troops.push(new Medic(createVector(mouseX + camPos.x - width/2, mouseY + camPos.y - height/2 + troopBarSize/2), 2));
+  let pos = createVector(mouseX + camPos.x - width/2, mouseY + camPos.y - height/2 + troopBarSize/2)
+  let team1Damager = new Shell(
+                               pos,                                //pos
+                               createVector(0, 0),     //vel
+                               100,                                    //damage
+                               10,                                     //size
+                               100,                                    //explosion radius
+                               2
+                              );
+  let team2Damager = new Shell(
+                               pos,                                //pos
+                               createVector(0, 0),     //vel
+                               100,                                    //damage
+                               10,                                     //size
+                               100,                                    //explosion radius
+                               1
+                              );
+  
+  team1Damager.impact();  
+  team2Damager.impact();
+
 }
