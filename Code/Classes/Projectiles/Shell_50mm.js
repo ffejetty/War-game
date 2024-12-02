@@ -1,11 +1,11 @@
-class Shell_40mm extends Shell{
+class Shell_50mm extends Shell{
     constructor(newPos, newDirection, newTeam){
         super(
             newPos,                                //pos
             newDirection.normalize().mult(9),     //vel
-            5,                                    //damage
-            7,                                     //size
-            50,                                    //explosion radius
+            8,                                    //damage
+            8,                                     //size
+            60,                                    //explosion radius
             newTeam                                //team
            );
     }

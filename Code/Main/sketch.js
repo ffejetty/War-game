@@ -182,6 +182,8 @@ function getNewTroop(className, newPos, newTeam){
         return new Medic(newPos, newTeam);
       case "Sniper":
         return new Sniper(newPos, newTeam);
+      case "Tank":
+        return new Tank(newPos, newTeam);
       default:
         return new Swordsman(newPos, newTeam);
     }
@@ -189,9 +191,9 @@ function getNewTroop(className, newPos, newTeam){
 
 function keyPressed(){
   if(key == "1"){
-    bunker1.buyTroop(getNewTroop("Infantry", createVector(200, random(-75,75) + mapHeight/2), 1));
+    bunker1.buyTroop(getNewTroop("Tank", createVector(200, random(-75,75) + mapHeight/2), 1));
   }else if(key == "2"){
-    bunker2.buyTroop(getNewTroop("Infantry", createVector(mapWidth - 200, random(-75,75) + mapHeight/2), 2));
+    bunker2.buyTroop(getNewTroop("Tank", createVector(mapWidth - 200, random(-75,75) + mapHeight/2), 2));
   }else if(key == "3"){
     bunker1.buyTroop(getNewTroop("SMG", createVector(200, random(-75,75) + mapHeight/2), 1));
   }else if(key == "0"){
@@ -202,6 +204,7 @@ function keyPressed(){
     fullscreen(!fullscreen());
   }
 }
+
 
 function mousePressed(){
   let pos = createVector(mouseX + camPos.x - width/2, mouseY + camPos.y - height/2 + troopBarSize/2)

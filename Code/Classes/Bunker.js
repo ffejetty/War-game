@@ -56,7 +56,7 @@ class Bunker{
       if(this.team == 1){
         nextTroop = getNewTroop("Sniper", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
       }else{
-        nextTroop = getNewTroop("Infantry", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
+        nextTroop = getNewTroop("Tank", createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
       }
 
       nextTroop = getNewTroop(random(["Swordsman", "Swordsman", "Scout", "Infantry", "Infantry", "SMG", "LightTank", "Sniper"]) ,createVector(this.pos.x, random(-75,75) + this.pos.y), this.team);
